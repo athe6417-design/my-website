@@ -1,76 +1,174 @@
 <!doctype html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KOJO — Portfolio</title>
   <meta name="description" content="Portfolio ของ KOJO" />
   <style>
-    :root{--bg:#0b0e14;--card:#111624;--text:#e6e7ee;--muted:#aab0c0;--brand:#6ee7ff;}
-    *{box-sizing:border-box} html,body{margin:0;height:100%;background:linear-gradient(180deg,#0b0e14,#0f1422);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif}
+    /* ---------- THEME TOKENS ---------- */
+    :root{
+      --bg:#0b0e14;--card:#111624;--text:#e6e7ee;--muted:#aab0c0;--brand:#6ee7ff;--ring:#3aa3ff55;--shadow:rgba(0,0,0,.25);
+    }
+    [data-theme="light"]{
+      --bg:#f6f8ff;--card:#ffffff;--text:#0c1222;--muted:#5e6b85;--brand:#008cff;--ring:#008cff3a;--shadow:rgba(0,0,0,.08);
+    }
+
+    /* ---------- BASE ---------- */
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      background: radial-gradient(1200px 600px at 10% -20%, #18305344, transparent),
+                  radial-gradient(800px 400px at 110% 10%, #1a1f3b33, transparent),
+                  var(--bg);
+      color:var(--text);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans Thai",sans-serif;
+    }
     a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
     .wrap{max-width:1100px;margin:0 auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:sticky;top:0;background:rgba(11,14,20,.7);backdrop-filter:blur(8px);border-bottom:1px solid #1b2235}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 0;position:sticky;top:0;background:color-mix(in oklab, var(--bg) 86%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent);z-index:10}
     nav a{margin-left:16px}
-    .hero{display:grid;gap:16px;grid-template-columns:1.2fr .8fr;align-items:center;padding:56px 0}
-    .badge{display:inline-block;background:#102038;border:1px solid #1b335a;color:#b7d8ff;padding:6px 10px;border-radius:999px;font-size:.85rem}
+    .row{display:flex;gap:8px;align-items:center}
+    button.icon{
+      border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      background:var(--card); color:var(--text);
+      padding:8px 12px;border-radius:12px;cursor:pointer;font-weight:700;
+      box-shadow:0 8px 24px var(--shadow);transition:transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    button.icon:hover{box-shadow:0 12px 28px var(--shadow)}
+    button.icon:active{transform:translateY(1px)}
+    .hero{display:grid;gap:16px;grid-template-columns:1.2fr .8fr;align-items:center;padding:52px 0}
+    .badge{display:inline-block;background:color-mix(in oklab, var(--brand) 12%, var(--card));border:1px solid color-mix(in oklab, var(--brand) 30%, transparent);color:color-mix(in oklab, var(--brand) 80%, var(--text));padding:6px 10px;border-radius:999px;font-size:.85rem}
     h1{font-size:clamp(28px,5vw,48px);margin:8px 0}
-    .btn{display:inline-block;background:var(--brand);color:#06121f;padding:12px 18px;border-radius:14px;font-weight:700;border:0;cursor:pointer}
+    .btn{display:inline-block;background:var(--brand);color:white;padding:12px 18px;border-radius:14px;font-weight:800;border:0;cursor:pointer;box-shadow:0 8px 24px var(--ring)}
     .btn:active{transform:translateY(1px)}
-    .card{background:var(--card);border:1px solid #1b2235;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card{background:var(--card);border:1px solid color-mix(in oklab, var(--text) 12%, transparent);border-radius:18px;padding:18px;box-shadow:0 10px 30px var(--shadow)}
     .grid{display:grid;gap:16px}
     .projects{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
     .about{grid-template-columns:1fr 1fr}
     footer{margin:36px 0;color:var(--muted);font-size:.9rem}
-    img{max-width:100%;border-radius:14px}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.about{grid-template-columns:1fr}}
+    img{max-width:100%;border-radius:14px;display:block}
+
+    /* ---------- MICRO-ANIMATION ---------- */
+    .pop{animation:pop .5s cubic-bezier(.2,.6,.2,1)}
+    @keyframes pop{0%{transform:translateY(6px) scale(.98);opacity:.0}100%{transform:none;opacity:1}}
+    .card{transition:transform .18s ease, box-shadow .2s ease, border-color .2s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 16px 38px var(--shadow);border-color:var(--ring)}
+
+    /* ---------- ANIME MODE (วิ้ง ๆ) ---------- */
+    body.anime .glow{
+      position:relative;isolation:isolate;
+    }
+    body.anime .glow::after{
+      content:"";position:absolute;inset:-8px;border-radius:22px;z-index:-1;
+      background:conic-gradient(from 0deg, #8be9ff, #b388ff, #ff89d6, #8be9ff);
+      filter:blur(16px);opacity:.55;animation:spin 6s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(1turn)}}
+
+    /* ดาวกะพริบ */
+    .twinkle{position:fixed;inset:0;pointer-events:none;z-index:-1;background:
+      radial-gradient(2px 2px at 20% 30%, #ffffff66, transparent),
+      radial-gradient(1.5px 1.5px at 70% 20%, #ffffff55, transparent),
+      radial-gradient(1.8px 1.8px at 40% 80%, #ffffff44, transparent),
+      radial-gradient(1.6px 1.6px at 85% 60%, #ffffff55, transparent);
+      animation:tw 4s ease-in-out infinite alternate;}
+    @keyframes tw{to{filter:brightness(1.3)}}
+
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
+  <div class="twinkle" aria-hidden="true"></div>
+
   <header class="wrap">
-    <div><strong>KOJO</strong></div>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="row">
+      <strong>KOJO</strong>
+    </div>
+    <div class="row">
+      <button id="animeBtn" class="icon" title="Anime mode">✨ Anime</button>
+      <button id="themeBtn" class="icon" title="Toggle theme">🌙 Dark</button>
+    </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap pop">
     <section class="hero">
       <div>
         <span class="badge">สวัสดีโลก 🌏</span>
-        <h1>ผมคือ <span style="color:var(--brand)">KOJO</span> — ทำเว็บ/แอป และเรียนรู้ของใหม่ทุกวัน</h1>
+        <h1>ผมคือ <span style="color:var(--brand)">KOJO</span> — ทำเว็บ/แอป และเรียนรู้อยู่ตลอด</h1>
         <p class="muted">เป้าหมาย: สร้างของที่คนใช้แล้วยิ้มได้ 😊</p>
         <a class="btn" href="#projects">ดูผลงาน</a>
       </div>
-      <div class="card">
+
+      <div class="card glow">
         <img alt="preview" src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1200&auto=format&fit=crop" />
       </div>
     </section>
 
     <section id="projects" class="grid projects">
-      <article class="card">
-        <h3>Fast Portfolio</h3>
-        <p>เว็บโปรไฟล์โหลดไวมาก ทำด้วย HTML/CSS/JS ล้วน</p>
-        <a href="#">ดูเดโม</a>
-      </article>
-      <article class="card">
-        <h3>API Playground</h3>
-        <p>ลองเรียก API และแสดงผลแบบเรียลไทม์</p>
-        <a href="#">ดูเดโม</a>
-      </article>
-      <article class="card">
-        <h3>Smart Farm 🪴</h3>
-        <p>แดชบอร์ดดูเซ็นเซอร์ อุณหภูมิ/ความชื้น (ไอเดียโปรเจกต์)</p>
-        <a href="#">ดูเดโม</a>
-      </article>
+      <article class="card"><h3>Fast Portfolio</h3><p>เว็บโปรไฟล์โหลดไวมาก ทำด้วย HTML/CSS/JS ล้วน</p><a href="#">ดูเดโม</a></article>
+      <article class="card"><h3>API Playground</h3><p>ลองเรียก API และแสดงผลแบบเรียลไทม์</p><a href="#">ดูเดโม</a></article>
+      <article class="card"><h3>Smart Farm 🪴</h3><p>แดชบอร์ดดูเซ็นเซอร์ อุณหภูมิ/ความชื้น (ไอเดียโปรเจกต์)</p><a href="#">ดูเดโม</a></article>
     </section>
 
     <section id="about" class="grid about" style="margin-top:32px">
-      <div class="card">
-        <h2>About</h2>
-        <p>ชอบทำเว็บสไตล์มินิมอล โฟกัส UX ที่ลื่นไหล และเขียนโค้ดอ่านง่าย</p>
+      <div class="card"><h2>About</h2><p>ชอบทำเว็บสไตล์มินิมอล โฟกัส UX ที่ลื่นไหล และโค้ดอ่านง่าย</p>
+        <ul>
+          <li>ถนัด: HTML, CSS, JS, Python (เริ่ม)</li>
+          <li>กำลังเรียน: React / Next.js</li>
+          <li>Vibe: Anime + Taylor/Billie 🎧</li>
+        </ul>
+      </div>
+      <div class="card"><h2>Tech Stack</h2><p>Static site + โฮสต์ฟรีบน GitHub Pages / Netlify</p><p>ต่อยอดเป็น Next.js ได้ภายหลัง</p></div>
+    </section>
+
+    <section id="contact" class="card glow" style="margin-top:32px">
+      <h2>Contact</h2>
+      <form onsubmit="event.preventDefault(); alert('รับข้อความแล้ว ขอบคุณน้า ✨');">
+        <div style="display:grid;gap:12px;grid-template-columns:1fr 1fr">
+          <input required placeholder="ชื่อ" />
+          <input required type="email" placeholder="อีเมล" />
+        </div>
+        <textarea required placeholder="ฝากข้อความไว้ได้เลย" style="width:100%;height:120px;margin-top:12px"></textarea>
+        <button class="btn" style="margin-top:12px">ส่งเลย</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap">© <span id="y"></span> KOJO — made with ❤️</footer>
+
+  <script>
+    // ---------- Theme boot ----------
+    const root = document.documentElement;
+    const btnTheme = document.getElementById('themeBtn');
+    const saved = localStorage.getItem('theme');
+    const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    function apply(t){
+      root.setAttribute('data-theme', t);
+      btnTheme.textContent = t === 'dark' ? '🌙 Dark' : '☀️ Light';
+      localStorage.setItem('theme', t);
+    }
+    apply(saved || (systemDark ? 'dark' : 'light'));
+    btnTheme.addEventListener('click', ()=> {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      apply(next);
+    });
+
+    // ---------- Anime mode ----------
+    const btnAnime = document.getElementById('animeBtn');
+    btnAnime.addEventListener('click', ()=>{
+      document.body.classList.toggle('anime');
+      btnAnime.textContent = document.body.classList.contains('anime') ? '✨ Anime ON' : '✨ Anime';
+    });
+
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>        <p>ชอบทำเว็บสไตล์มินิมอล โฟกัส UX ที่ลื่นไหล และเขียนโค้ดอ่านง่าย</p>
         <ul>
           <li>ถนัด: HTML, CSS, JS, Python (เริ่ม)</li>
           <li>กำลังเรียน: React / Next.js</li>
