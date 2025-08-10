@@ -199,3 +199,73 @@
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
                                 </html>
+/* --- FAVOURITES --- */
+.tabs{display:flex;gap:8px;margin:6px 0 16px}
+.tab{background:var(--card);border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+  color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
+.tab.active{outline:2px solid var(--brand);outline-offset:2px}
+.favs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.song{background:var(--card);border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+  border-radius:16px;padding:14px}
+.song h4{margin:0 0 6px;font-size:1.05rem}
+.badge-artist{display:inline-block;padding:3px 8px;border-radius:999px;font-size:.8rem;margin-bottom:8px;
+  background:color-mix(in oklab, var(--brand) 12%, var(--card));border:1px solid color-mix(in oklab, var(--brand) 28%, transparent)}
+.artist-note{margin:8px 0 16px;color:var(--muted)}
+<section id="favourites" class="card" style="margin-top:32px">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <h2 style="margin:0">Favourite Songs</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="taylor">Taylor Swift</button>
+      <button class="tab" data-tab="billie">Billie Eilish</button>
+    </div>
+  </div>
+
+  <!-- คำบรรยายศิลปิน -->
+  <p class="artist-note" data-note="taylor">
+    #TeamTaylor 💖 — KOJO อินกับยุค <b>Fearless</b> และ <b>Lover</b> มาก ๆ
+    เพลงโปรดใช้เล่าเรื่องรักความหวัง ความกล้า และ vibe ที่ทำให้ยิ้มได้
+  </p>
+  <p class="artist-note" data-note="billie" style="display:none">
+    #TeamBillie 💙 — ชอบทั้งสามอัลบั้ม โดยเฉพาะ <b>Happier Than Ever</b> กับ <b>HIT ME HARD AND SOFT</b>.
+    เพลงโปรดของ KOJO คือพื้นที่ปล่อยความรู้สึกจริง ๆ แบบดิบ ๆ แต่สวยงาม.
+  </p>
+
+  <!-- รายการเพลง -->
+  <div class="favs" data-list="taylor">
+    <div class="song"><span class="badge-artist">Taylor</span><h4>Enchanted</h4><p>moment หวานปนลุ้น — เพลงที่ KOJO ยกให้เป็นที่สุดของความเขินแบบโลกทั้งใบสว่างขึ้น 🌟</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>The Archer</h4><p>สำรวจความสับสนและความอ่อนไหวในใจ — เพลงที่ KOJO ใช้ทบทวนตัวเองบ่อย ๆ</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>Cruel Summer</h4><p>พลังงานหน้าร้อนที่ระเบิดความอินเลิฟแบบกลั้นไม่อยู่ 💥</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>You Belong With Me</h4><p>comfort song ชั้นดีของ KOJO จากยุค <b>Fearless</b> ฟังแล้วใจฟู</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>Love Story</h4><p>โรแมนติกคลาสสิกสไตล์สายฝัน — เพลงที่ทำให้ยิ้มได้ทุกครั้ง</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>Breathe</h4><p>บาดนิด ๆ แต่สวยมาก — เพลงปล่อยวางหายใจลึก ๆ ของ KOJO</p></div>
+    <div class="song"><span class="badge-artist">Taylor</span><h4>Style</h4><p>โทนเท่ เรียบหรู ฟังแล้วรู้สึกคูลขึ้นทันที 😎</p></div>
+  </div>
+
+  <div class="favs" data-list="billie" style="display:none">
+    <div class="song"><span class="badge-artist">Billie</span><h4>SKINNY</h4><p>เปิดอัลบั้มแบบเปลือยใจ — โทนสงบแต่แทงลึก เหมาะกับคืนเงียบ ๆ</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>L’AMOUR DE MA VIE</h4><p>ซีนเปลี่ยนอารมณ์ดุเดือด ชอบตรงจังหวะหักเลี้ยวที่โคตรมันส์</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>BLUE</h4><p>บทสรุปอารมณ์แบบฟ้าน้ำเงิน — เจ็บสวย มีภาพในหัวชัดมาก</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>LUNCH</h4><p>จิกกัด สนุก แพรวพราว — เปิดแล้วไฟติดทันที</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>Happier Than Ever</h4><p>ค่อย ๆ ไต่ไปสู่การปลดปล่อยครั้งใหญ่ ระเบิดอารมณ์แบบสะใจ</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>ocean eyes</h4><p>เพลงที่ทำให้หลายคนรู้จักบิลลี่ — โทนละมุน ลอย ๆ</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>WILDFLOWER</h4><p>กลิ่นอายอ่อนโยนปนเศร้า เหมาะกับนั่งมองท้องฟ้า</p></div>
+    <div class="song"><span class="badge-artist">Billie</span><h4>BIRDS OF A FEATHER</h4><p>ละมุนติดหู ความรักที่อยากบินไปด้วยกันเสมอ 🕊️</p></div>
+  </div>
+</section>
+<script>
+  // Tabs switcher
+  const tabs = document.querySelectorAll('.tab');
+  const lists = document.querySelectorAll('[data-list]');
+  const notes = document.querySelectorAll('[data-note]');
+  tabs.forEach(t=>{
+    t.addEventListener('click', ()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      t.classList.add('active');
+      const key = t.dataset.tab;
+      lists.forEach(g=>g.style.display = (g.dataset.list===key)?'grid':'none');
+      notes.forEach(n=>n.style.display = (n.dataset.note===key)?'block':'none');
+      // เลื่อนขึ้นนิดให้เห็นหัวข้อชัด
+      document.getElementById('favourites').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
